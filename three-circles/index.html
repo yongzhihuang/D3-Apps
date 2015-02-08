@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+  <meta charset="utf-8">
+  <title>Three Circles</title>
+</head>
+<body>
+
+<svg width="720" height="120">
+  <circle cx="40" cy="60" r="10"></circle>
+  <circle cx="80" cy="60" r="10"></circle>
+  <circle cx="120" cy="60" r="10"></circle>
+</svg>
+
+
+<script>
+	
+	//Selects all circles on page
+	var circle = d3.selectAll('circle');
+
+	//change circle's fill and radius for all
+	circle.style('fill', 'steelblue');
+	circle.attr('r', 30);
+
+	//modifying circle individually via anon func callback3
+	//The following will update the circle's cx position from a random number
+	circle.attr('cx', function(){
+		return Math.random()*720;
+	});
+
+	//Using data to represent the circles
+	//go through each circle and make the radius sq root of each value in data
+	circle.data([32,57,112]);
+	circle.attr('r', function(d){
+		return Math.sqrt(d);
+	});
+
+	//position the circle's x axis based on index of data
+	circle.attr('cx', function(d,i) {
+		return i * 100 + 30;	//ex: 0 * 100 + 30, 1* 100 + 30, 2* 100+30
+	});
+
+	//Entering elements, say data has only 4 values, but we only have 3 elements
+	//We can use 'enter' to create value elements that dont fit into the number of elements we have
+
+	// var svg = d3.select('svg');
+	// var circle = svg.selectAll('circle')
+	// 		.data([32,57,112,293]);
+
+	// var circleEnter = circle.enter().append('circle');
+
+	// circleEnter.attr('fill', 'steelblue');
+	// circleEnter.attr('cy', 60);	
+	// circleEnter.attr('cx', function(d,i){ return i * 100 + 30; });
+	// circleEnter.attr('r', function(d) { return Math.sqrt(d); });
+
+	//Or put it together
+	var svg = d3.select('svg');
+	svg.selectAll('circle')
+			.data([32,57,112,293])
+		.enter().append('circle')
+			.attr('fill', 'steelblue')
+			.attr('cy', 60)
+			.attr('cx', function(d,i) {return i * 100 + 30;})
+			.attr('r', function(d) {return Math.sqrt(d);});
+
+
+	//If you have too many eisting elements, then you want to remove some of them.
+	//this will remove any exist el from dom and leave the doms that represent the 2 data points in the dom
+	var circle = svg.selectAll('circle')
+			.data([32,57]);
+
+	circle.exit().remove();
+
+</script>
+</body>
+
+</html>
