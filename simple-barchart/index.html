@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+  <meta charset="utf-8">
+  <title>Simple Bar chart</title>
+</head>
+
+<style>
+  div.bar {
+      display: inline-block;
+      width: 20px;
+      height: 75px;
+      margin-right: 5px; 
+      background-color: teal;
+  }
+</style>
+
+<body>
+
+<script>
+  var dataset = [ 25, 7, 5, 26, 11, 8, 25, 14, 23, 19,
+                  14, 11, 22, 29, 11, 13, 12, 17, 18, 10,
+                  24, 18, 25, 9, 3 ].sort(function(a, b) {return a-b;});
+
+  d3.select('body')
+      .data(dataset)
+    .enter()
+    .append('div')
+    .attr('class', 'bar')
+    .style('height', function(d){ return d*10 + 'px'; });
+</script>
+
+</body>
+
+</html>

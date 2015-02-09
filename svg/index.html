@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+  <meta charset="utf-8">
+  <title>D3 SVG</title>
+</head>
+
+<style>
+
+</style>
+
+<body>
+
+<script>
+  var w = 500;
+  var h = 50;
+  var dataset = [ 5, 10, 15, 20, 25 ];
+
+  var svg = d3.select('body')
+      .append('svg')
+      .attr('width', w)
+      .attr('height', h);
+
+  var circles = svg.selectAll('circle')
+      .data(dataset)
+      .enter()
+      .append('circle');
+
+  circles.attr('cx', function(d, i) {
+    //set x position based on index, so space them apart
+    return (i*50) + 25;
+  })
+      .attr('cy', h/2)  //set the y position to be middle of svg
+      .attr('r', function(d){ return d; }) //radius is based on the value from dataset
+      .attr('fill', 'yellow')
+      .attr('stroke', 'orange')
+      .attr('stroke-width', function(d) { return d/2; });
+
+</script>
+
+</body>
+
+</html>
